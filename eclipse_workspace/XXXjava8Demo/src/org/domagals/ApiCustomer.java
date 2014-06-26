@@ -2,8 +2,8 @@ package org.domagals;
 
 public class ApiCustomer {
 
-	public int apiCalls;
-	public boolean isBlocked;
+	private int apiCalls;
+	private boolean isBlocked;
 	
 	
 	public ApiCustomer(final int alreadyMadeCalls){
