@@ -14,9 +14,12 @@ object Application extends Controller {
   
   //maper do formularza
   lazy val posilekMapping = mapping(
-      "nazwa"->text,
+      "nazwa"->nonEmptyText(3, 10).verifying("żadnych warzyw", _ !="warzywo"),
+      //"nazwa"->nonEmptyText(3, 10).verifying("żadnych warzyw", nazwa=> nazwa !="warzywo"),
       "kalorie"->number
-  )(Posilek.apply)(Posilek.unapply)
+      // ponizej obsluga globalnych bledow
+      // globalne bledy trzeba wyswietlic osobno w htmlu
+  )(Posilek.apply)(Posilek.unapply).verifying("blad globalny", posilek=>posilek.kalorie > 3000)
   
   
   def index = Action {

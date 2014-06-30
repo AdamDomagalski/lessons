@@ -8,8 +8,12 @@ Tu będzie nasz formularz
 
 @import helper._
 
+@for(error<-posilekForm.globalError){
+	<li>@error.message</li>
+}
+
 @form(action=routes.Application.submitForma){
-	@inputText(posilekForm("nazwa"))
+	@inputText(posilekForm("nazwa"),'_showConstraints->false)
 	@inputText(posilekForm("kalorie"))
 	
 	<input type="submit">
