@@ -21,6 +21,22 @@ class ApplicationSpec extends Specification {
       result.isRight must beTrue
     }
     
+    "find errors while mapping Posilek data" in{
+      val data = Map("nazwa"->"pomidorowa", "kalorie"->"500b")
+      val result = Application.posilekMapping.bind(data)
+      result.isLeft must beTrue
+      //rzuci errorem 
+      //result.isRight must beTrue
+    }
+    
+    "find errors while mapping Posilek form" in{
+      val data = Map("nazwa"->"pomidorowa", "kalorie"->"500b")
+      val result = Application.posilek.bind(data)
+      result.errors must have (_.key=="kalorie")
+      //to samo co
+      //result.errors must have (e=>e.key=="kalorie")
+    }
+    
     "send 404 on a bad request" in new WithApplication{
       route(FakeRequest(GET, "/boum")) must beNone
     }
