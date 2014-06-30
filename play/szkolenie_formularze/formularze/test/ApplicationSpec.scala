@@ -1,9 +1,9 @@
 import org.specs2.mutable._
 import org.specs2.runner._
 import org.junit.runner._
-
 import play.api.test._
 import play.api.test.Helpers._
+import controllers.Application
 
 /**
  * Add your spec here.
@@ -15,6 +15,12 @@ class ApplicationSpec extends Specification {
 
   "Application" should {
 
+    "map posilek data" in{
+      val data = Map("nazwa"->"pomidorowa", "kalorie"->"500")
+      val result = Application.posilekMapping.bind(data)
+      result.isRight must beTrue
+    }
+    
     "send 404 on a bad request" in new WithApplication{
       route(FakeRequest(GET, "/boum")) must beNone
     }
