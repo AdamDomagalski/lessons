@@ -4,6 +4,7 @@ import play.api._
 import play.api.mvc._
 import play.api.data._
 import play.api.data.Forms._
+import controllers.html.formularz
 
 object Application extends Controller {
 
@@ -19,6 +20,11 @@ object Application extends Controller {
   
   def index = Action {
     Ok(views.html.index("Your new application is ready."))
+  }
+  
+  def pokazFormularz = Action {
+	  //lepiej wrzucac do views ;)
+	  Ok(html.formularz())
   }
 }
 //klasa posilku 
