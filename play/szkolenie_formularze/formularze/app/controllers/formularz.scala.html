@@ -1,9 +1,19 @@
 @* formularz Template File *@
-@(param: Any)
+@(posilekForm: Form[Posilek])
 <html>
 <head> Formularz
 </head>
 <body>
-tu będzie nasz formularz
+Tu będzie nasz formularz
+
+@import helper._
+
+@form(action=routes.Application.submitForma){
+	@inputText(posilekForm("nazwa"))
+	@inputText(posilekForm("kalorie"))
+	
+	<input type="submit">
+}
+
 </body>
 </html>

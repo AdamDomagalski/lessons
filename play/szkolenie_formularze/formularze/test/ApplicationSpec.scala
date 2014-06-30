@@ -31,7 +31,7 @@ class ApplicationSpec extends Specification {
     
     "find errors while mapping Posilek form" in{
       val data = Map("nazwa"->"pomidorowa", "kalorie"->"500b")
-      val result = Application.posilek.bind(data)
+      val result = Application.posilekForm.bind(data)
       result.errors must have (_.key=="kalorie")
       //to samo co
       //result.errors must have (e=>e.key=="kalorie")

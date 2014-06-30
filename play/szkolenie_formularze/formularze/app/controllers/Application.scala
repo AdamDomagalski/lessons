@@ -5,11 +5,12 @@ import play.api.mvc._
 import play.api.data._
 import play.api.data.Forms._
 import controllers.html.formularz
+import views.html.defaultpages.badRequest
 
 object Application extends Controller {
 
   // formularz posilku
-  val posilek = Form(posilekMapping)
+  val posilekForm = Form(posilekMapping)
   
   //maper do formularza
   lazy val posilekMapping = mapping(
@@ -24,7 +25,16 @@ object Application extends Controller {
   
   def pokazFormularz = Action {
 	  //lepiej wrzucac do views ;)
-	  Ok(html.formularz())
+	  Ok(html.formularz(posilekForm))
+  }
+  
+  def submitForma=Action {
+    // implicit aby go potem dalej nie przekazywac
+    implicit request => 
+      posilekForm.bindFromRequest.fold(
+          formWithErrors => BadRequest(html.formularz(formWithErrors)), 
+          posilek=>Ok(s" dostalem posilek ${posilek.nazwa}")
+      )
   }
 }
 //klasa posilku 
