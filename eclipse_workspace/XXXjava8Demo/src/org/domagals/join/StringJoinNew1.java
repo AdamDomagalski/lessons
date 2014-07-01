@@ -42,10 +42,4 @@ public class StringJoinNew1 {
     	System.out.println("joiner for each "+joiner2.toString());
     	
 	}
-    
-    
-    
-    
-    
-    
 }

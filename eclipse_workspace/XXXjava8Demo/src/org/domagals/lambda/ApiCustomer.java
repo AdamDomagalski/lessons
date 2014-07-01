@@ -1,4 +1,4 @@
-package org.domagals;
+package org.domagals.lambda;
 
 public class ApiCustomer {
 

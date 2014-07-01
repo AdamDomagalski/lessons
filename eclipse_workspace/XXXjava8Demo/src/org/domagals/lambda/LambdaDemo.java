@@ -1,4 +1,4 @@
-package org.domagals;
+package org.domagals.lambda;
 
 import java.util.ArrayList;
 import java.util.Arrays;
