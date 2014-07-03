@@ -21,28 +21,26 @@ public class DateTimeDemo {
 		System.out.println(nano);
 		
 		
-//		System.out.println(ZoneOffset.getAvailableZoneIds());
-		
-		System.out.println("local:"+
-				LocalDateTime.now().toEpochSecond(ZoneOffset.of("+2:00"))
-				);
-		// dla informacji z punktu widzenia maszyny czasami może nam się przydać
+		// for machine usage/information we sometimes may want to use Instant which runs on Epoch time
 		Instant instantNow = Instant.now();
 		System.out.println("Instant: "+ instantNow);
 		
 		
 		System.out.println(instantNow.getEpochSecond());
 		
-		// do liczenia okresów używamy klasy Period
+		
+		// To count Periods we use Period class
 		LocalDate one = LocalDate.now();
 		LocalDate two = LocalDate.now().plusWeeks(3);
 		Period between = Period.between(one, two);
 		System.out.println(between.getDays());
 		
+		// If i remember correctly in joda you could use the < and > operators to compare dates but to be honest the isAfter isBefore functions are way more readable for me
+		one.isAfter(two);
+		
+		
+		
 		// Duration
-		//to samo co period tylko działa na nanosekundach, do obliczeń maszynowych
-		
-		
-		
+		// the same as Period but runs on epoch time, for machine calculations
 	}
 }

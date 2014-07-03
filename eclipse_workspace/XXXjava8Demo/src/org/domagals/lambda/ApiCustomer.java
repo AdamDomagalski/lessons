@@ -10,7 +10,6 @@ public class ApiCustomer {
 		apiCalls = alreadyMadeCalls;
 	}
 	
-	
 	public boolean isBlocked(){
 		return isBlocked;
 	}
