@@ -1,13 +1,18 @@
 package org.domagals.lambda;
 
+
 public class ApiCustomer {
 
 	private int apiCalls;
+	private static final int DEFAULT_API_CALLS = 1000;
 	private boolean isBlocked;
 	
+	BlockInterface blockInterface;
 	
-	public ApiCustomer(final int alreadyMadeCalls){
+	public ApiCustomer(final int alreadyMadeCalls,BlockInterface intef){
 		apiCalls = alreadyMadeCalls;
+		blockInterface = intef;
+		isBlocked = false;
 	}
 	
 	public boolean isBlocked(){
@@ -15,9 +20,13 @@ public class ApiCustomer {
 	}
 	
 	public void blockIfNecesary(){
-		if(this.apiCalls > 5){
+		if(this.apiCalls > DEFAULT_API_CALLS){
 			isBlocked = true;
 		}
+	}
+	
+	public int getApiCalls(){
+		return apiCalls;
 	}
 	
 	@Override
