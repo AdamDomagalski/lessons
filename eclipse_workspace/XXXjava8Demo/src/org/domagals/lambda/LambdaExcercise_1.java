@@ -21,12 +21,7 @@ public class LambdaExcercise_1 {
 		
 		List<ApiCustomer> collect = customer.stream().map(blockIfNecesairy()).filter(ApiCustomer::isBlocked).collect(Collectors.toList());
 		Thread t = new Thread(() -> {System.out.println("go");});
-		//http://java2practice.com/2014/03/16/java-8-functional-interface-example/
 		
-		
-		ApiCustomer apiCustomer = new ApiCustomer(1, () -> System.out.printpl("dupa"));
-		collect.stream().map(ApiCustomer::getApiCalls).map(x -> new ApiCustomer(x, ()->(this.apiCalls > 1000)?isBlocked = true;isBlocked=false;))
-			
 		System.out.println("-=-");
 		System.out.println(collect);
 	}

@@ -7,11 +7,8 @@ public class ApiCustomer {
 	private static final int DEFAULT_API_CALLS = 1000;
 	private boolean isBlocked;
 	
-	BlockInterface blockInterface;
-	
-	public ApiCustomer(final int alreadyMadeCalls,BlockInterface intef){
+	public ApiCustomer(final int alreadyMadeCalls){
 		apiCalls = alreadyMadeCalls;
-		blockInterface = intef;
 		isBlocked = false;
 	}
 	
