@@ -1,8 +1,12 @@
 package org.domagals.lambda;
 
+import java.time.Duration;
+import java.time.Instant;
 import java.util.List;
 import java.util.function.Function;
 import java.util.stream.Collectors;
+
+import checkers.nullness.quals.NonNull;
 
 public class LambdaExcercise_1 {
 
@@ -10,18 +14,19 @@ public class LambdaExcercise_1 {
 	/**
 	 * przy pomocy ApiCustomerProvider'a sprawdzić klientów z id 1 do 10
 	 * sprawdzić czy są zablokowani i zwrócić listę nie zablokowanych klientów 
-	
 	 */
 	
 	public static void main(String[] args) {
 		
-		List<ApiCustomer> customer = ApiCustomerProvider.getCustomer();
+		@NonNull List<ApiCustomer> customer = null;
+		customer = ApiCustomerProvider.getCustomer();
 		System.out.println(customer);
-		
-		
+		Instant before = Instant.now();
 		List<ApiCustomer> collect = customer.stream().map(blockIfNecesairy()).filter(ApiCustomer::isBlocked).collect(Collectors.toList());
-		Thread t = new Thread(() -> {System.out.println("go");});
+		Instant after = Instant.now();
 		
+		Duration time = Duration.between(before, after);
+		System.out.println(time.getNano());
 		System.out.println("-=-");
 		System.out.println(collect);
 	}

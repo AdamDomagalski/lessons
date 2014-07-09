@@ -24,7 +24,6 @@ public class DateTimeDemo {
 		Instant instantNow = Instant.now();
 		System.out.println("Instant: "+ instantNow);
 		
-		
 		System.out.println(instantNow.getEpochSecond());
 		
 		
