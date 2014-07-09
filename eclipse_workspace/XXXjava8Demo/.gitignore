@@ -1,6 +1,7 @@
 /.apt_generated
 /target/
 
-.settings
-.classpath
-.project
+/.settings
+/.classpath
+/.project
+/.idea
