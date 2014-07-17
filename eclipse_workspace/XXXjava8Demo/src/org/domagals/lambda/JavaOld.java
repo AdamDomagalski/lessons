@@ -5,13 +5,12 @@ import java.time.Instant;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
-import java.time.Period;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
-public class javaOld {
+public class JavaOld {
 
 	
 	/**
@@ -39,7 +38,7 @@ public class javaOld {
 //		System.out.println(resultCustomerList);
 		
 		before = Instant.now();
-		List<ApiCustomer> collect = customerList.stream().map(blockIfNecesairy()).filter(ApiCustomer::isBlocked).collect(Collectors.toList());
+		List<ApiCustomer> collect = customerList.stream().map(JavaOld::initializeCustomer).filter(ApiCustomer::isBlocked).collect(Collectors.toList());
 		after = Instant.now();
 		
 		Duration newer = Duration.between(before, after);
@@ -52,11 +51,10 @@ public class javaOld {
 		System.out.println(LocalDate.now());
 		System.out.println(LocalDateTime.now());
 		System.out.println(LocalTime.now());
-		
-		
 	}
-
-	private static Function<? super ApiCustomer, ? extends ApiCustomer> blockIfNecesairy() {
-		return x ->{x.blockIfNecesary(); return x;};
+	
+	private static ApiCustomer initializeCustomer(ApiCustomer apiCustomer){
+		apiCustomer.blockIfNecesary();
+		return apiCustomer;
 	}
 }

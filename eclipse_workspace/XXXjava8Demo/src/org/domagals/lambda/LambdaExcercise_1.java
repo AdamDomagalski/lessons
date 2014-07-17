@@ -31,7 +31,7 @@ public class LambdaExcercise_1 {
 		System.out.println(collect);
 	}
 
-	private static Function<? super ApiCustomer, ? extends ApiCustomer> blockIfNecesairy() {
+	private static Function<ApiCustomer , ApiCustomer> blockIfNecesairy() {
 		return x->{x.blockIfNecesary(); return x;};
 	}
 }
