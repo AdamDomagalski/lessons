@@ -21,7 +21,7 @@ public class JavaOld {
 	
 	public static void main(String[] args) {
 		
-		List<ApiCustomer> customerList = ApiCustomerProvider.getCustomer();
+		List<ApiCustomer> customerList = ApiCustomerProvider.getRandomCustomers();
 		List<ApiCustomer> resultCustomerList = new ArrayList<ApiCustomer>();
 		
 		Instant before = Instant.now();

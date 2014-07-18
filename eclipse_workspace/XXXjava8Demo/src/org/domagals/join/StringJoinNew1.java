@@ -34,6 +34,7 @@ public class StringJoinNew1 {
 
     	StringJoiner joiner = new StringJoiner(SEPARATOR);
     	
+    	//very not cool
     	System.out.println("joiner "+userHeaders.stream().reduce("",  (a,b) -> joiner.add(b)+"").toString());
     	
     	StringJoiner joiner2 = new StringJoiner(SEPARATOR);

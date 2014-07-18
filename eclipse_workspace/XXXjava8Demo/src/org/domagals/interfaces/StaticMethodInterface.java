@@ -2,6 +2,7 @@ package org.domagals.interfaces;
 
 public interface StaticMethodInterface {
 
+	// for backward compatibility
 	default void work(){
 		System.out.println("work");
 	}

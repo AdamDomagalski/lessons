@@ -33,7 +33,6 @@ public class DateTimeDemo {
 		Period between = Period.between(one, two);
 		System.out.println(between.getDays());
 		
-		// If i remember correctly in joda you could use the < and > operators to compare dates but to be honest the isAfter isBefore functions are way more readable for me
 		one.isAfter(two);
 		
 		

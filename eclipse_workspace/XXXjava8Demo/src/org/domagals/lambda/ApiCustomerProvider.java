@@ -6,7 +6,7 @@ import java.util.List;
 public class ApiCustomerProvider {
 
 	
-	public static List<ApiCustomer> getCustomer(){
+	public static List<ApiCustomer> getRandomCustomers(){
 		List<ApiCustomer> list = new ArrayList<>();
 		for(int i=1;i<=10;i++){
 			list.add(new ApiCustomer((int)(i* Math.random()*4000)));

@@ -19,7 +19,7 @@ public class LambdaExcercise_1 {
 	public static void main(String[] args) {
 		
 		@NonNull List<ApiCustomer> customer = null;
-		customer = ApiCustomerProvider.getCustomer();
+		customer = ApiCustomerProvider.getRandomCustomers();
 		System.out.println(customer);
 		Instant before = Instant.now();
 		List<ApiCustomer> collect = customer.stream().map(blockIfNecesairy()).filter(ApiCustomer::isBlocked).collect(Collectors.toList());

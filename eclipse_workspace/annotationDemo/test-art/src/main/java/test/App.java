@@ -13,4 +13,12 @@ public class App
     {
         @NonNull String apud = null;
     }
+    
+//    private static String foo(){
+//    	if(System.currentTimeMillis()%2==0){
+//    		return null;
+//    	}
+//    	return "bar";
+//    }
 }
+ 
