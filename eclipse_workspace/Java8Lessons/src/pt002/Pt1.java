@@ -16,7 +16,7 @@ public class Pt1 {
 	
 	}
 	
-	
+	// ostatni oarument jest tym co zwracamy
 	static<A,B,C> Function<B,C> partial1(A a,BiFunction<A,B,C> f){
 		return b -> f.apply(a,b);
 	}

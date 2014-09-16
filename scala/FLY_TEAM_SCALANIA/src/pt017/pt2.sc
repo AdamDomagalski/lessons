@@ -13,7 +13,7 @@ object pt2 {
 
 object Cur{
 
-	def curry[A,B,C](f: (A, B) => C): A => (B => C)=
+	def curry[A,B,C](f: (A, B) => C): A => B => C=
 		//(a:A) =>(b:B) => f(a,b)
 		// uproszczone
 		a => b => f(a,b)
@@ -21,5 +21,7 @@ object Cur{
 		
 		def uncurry[A,B,C](f: A => B => C): (A, B) => C ={
 		(a:A,b:B)=>f(a)(b)
+		// nieuproszczone
+		//(a:A,b:B)=>(f(a))(b)
 		}
 }
