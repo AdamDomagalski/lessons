@@ -59,11 +59,24 @@ object exercise3_X {
 	MyList.stringer(test3_17);
 	*/
 	
+	/*
 	//3.18
-	val test3_18 = MyList(1,2,3,4)            //> test3_18  : funproginsca.MyList.MyList[Int] = MyCons(1,MyCons(2,MyCons(3,MyC
-                                                  //| ons(4,MyNil))))
-	MyList.map(test3_18)(a => a+3)            //> res0: funproginsca.MyList.MyList[Int] = MyCons(4,MyCons(5,MyCons(6,MyCons(7
-                                                  //| ,MyNil))))
+	val test3_18 = MyList(1,2,3,4)
+	MyList.map(test3_18)(a => a+3)
+	*/
+	/*
+	//3.19
+	val test3_19 = MyList(3,7,5,88,1,15)
+	MyList.filter(test3_19)(_%2 ==0)
+	*/
+	
+	/*
+	//3.20
+	MyList.flatMap(MyList(1,2,3))(i => MyList(i,i))
+  */
+	//3.21
+	
+	
 }
 
 object MyList {
@@ -71,6 +84,20 @@ object MyList {
   case object MyNil extends MyList[Nothing]
   case class MyCons[+A](head: A, tail: MyList[A]) extends MyList[A]
 
+
+
+
+	//3.20
+	def flatMap[A,B](as: MyList[A])(f: A => MyList[B]): MyList[B] ={
+	val temp = foldRight(as,MyList[MyList[B]]())((item,list) => MyCons(f(item),list))
+	megaFold(temp)
+	}
+	
+
+	//3.19
+	def filter[A](as: MyList[A])(f: A => Boolean): MyList[A] = {
+	foldRight(as,MyList[A]())((item,list)=> if(f(item)) MyCons(item,list) else list)
+	}
 
 	//3.18
 	def map[A,B](as: MyList[A])(f: A => B): MyList[B] = {
