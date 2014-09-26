@@ -26,11 +26,13 @@ object exercise3_X {
 
   //exercise 3.10
 
+  /*
   //3.12
-  MyList.revert(MyList(1, 2, 3, 4))               //> res0: funproginsca.MyList.MyList[Int] = MyCons(4,MyNil)
+  MyList.revert(MyList(1, 2, 3, 4))
+  */
 
   /*
-	//3.13
+	//3.14
 	val la = MyList(1,2,3,4)
 	val lb = MyList(5,6,7,8)
 	MyList.append(la, lb)
@@ -41,16 +43,45 @@ object exercise3_X {
 	MyList.append(la,MyList())
  	*/
 
-  /*//3.14
+  /*//3.15
  	MyList.megaFold(MyList(la,lb,MyList(11,12)))
 	*/
 
+	/*
+	//3.16
+	val list = List(1,2,3,4,5,11)
+	MyList.increase(list)
+	*/
+	
+	/*
+	//3.17
+	val test3_17 = List(1.1,2.2,3.3)
+	MyList.stringer(test3_17);
+	*/
+	
+	//3.18
+	val test3_18 = MyList(1,2,3,4)            //> test3_18  : funproginsca.MyList.MyList[Int] = MyCons(1,MyCons(2,MyCons(3,MyC
+                                                  //| ons(4,MyNil))))
+	MyList.map(test3_18)(a => a+3)            //> res0: funproginsca.MyList.MyList[Int] = MyCons(4,MyCons(5,MyCons(6,MyCons(7
+                                                  //| ,MyNil))))
 }
 
 object MyList {
   sealed trait MyList[+A]
   case object MyNil extends MyList[Nothing]
   case class MyCons[+A](head: A, tail: MyList[A]) extends MyList[A]
+
+
+	//3.18
+	def map[A,B](as: MyList[A])(f: A => B): MyList[B] = {
+	   foldRight(as,MyList[B]())((item,list)=>MyCons(f(item),list))
+	}
+	
+	//3.17
+	def stringer(l:List[Double]):List[String] = l.map(_.toString)
+	
+	//3.16
+	def increase(l:List[Int]):List[Int] = l.map(_+1)
 
   //3.15
   def megaFold[A](baselist: MyList[MyList[A]]): MyList[A] = {
@@ -68,8 +99,7 @@ object MyList {
   // exercise 3.12
   def revert[A](a: MyList[A]) =
   foldLeft(a, MyList[A]())(
-  (list, item) =>
-  setHead(item, list))
+  (list,item) => MyCons(item,list))
 
   // exercise 3.10
   def foldLeft[A, B](as: MyList[A], z: B)(f: (B, A) => B): B = as match {
