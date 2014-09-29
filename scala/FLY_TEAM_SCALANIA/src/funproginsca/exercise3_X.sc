@@ -74,8 +74,20 @@ object exercise3_X {
 	//3.20
 	MyList.flatMap(MyList(1,2,3))(i => MyList(i,i))
   */
+  
+	/*
 	//3.21
+	val asd =MyList(1,2,3,4,5)
+	MyList.flatMapFilter(asd)(a=> a>3)
+	*/
 	
+	/*
+	//3.22
+	val one = MyList(1,2,3,4)
+	val two = MyList(4,5,6,7)
+	
+	MyList.uberAder(one, two) ((a,b)=>a+b)
+  */
 	
 }
 
@@ -85,6 +97,19 @@ object MyList {
   case class MyCons[+A](head: A, tail: MyList[A]) extends MyList[A]
 
 
+	//3.22
+	def uberAder[A,B](list1:MyList[A],list2:MyList[A])(f: (A,A) => A):MyList[A] = (list1,list2) match {
+	case (MyCons(a,b),MyCons(c,d)) => MyCons(f(a,c),uberAder(b,d)(f))
+	case (MyNil,MyCons(a,b)) => MyCons(a,b)
+	case (MyCons(a,b),MyNil) => MyCons(a,b)
+	case (MyNil,MyNil) => MyNil
+	
+	}
+
+	//3.21
+	def flatMapFilter[A](list:MyList[A])(f: A => Boolean):MyList[A] = {
+		flatMap(list) (a => if(f(a)) MyList(a) else MyNil)
+	}
 
 
 	//3.20
