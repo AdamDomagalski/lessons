@@ -47,48 +47,61 @@ object exercise3_X {
  	MyList.megaFold(MyList(la,lb,MyList(11,12)))
 	*/
 
-	/*
+  /*
 	//3.16
 	val list = List(1,2,3,4,5,11)
 	MyList.increase(list)
 	*/
-	
-	/*
+
+  /*
 	//3.17
 	val test3_17 = List(1.1,2.2,3.3)
 	MyList.stringer(test3_17);
 	*/
-	
-	/*
+
+  /*
 	//3.18
 	val test3_18 = MyList(1,2,3,4)
 	MyList.map(test3_18)(a => a+3)
 	*/
-	/*
+  /*
 	//3.19
 	val test3_19 = MyList(3,7,5,88,1,15)
 	MyList.filter(test3_19)(_%2 ==0)
 	*/
-	
-	/*
+
+  /*
 	//3.20
 	MyList.flatMap(MyList(1,2,3))(i => MyList(i,i))
   */
-  
-	/*
+
+  /*
 	//3.21
 	val asd =MyList(1,2,3,4,5)
 	MyList.flatMapFilter(asd)(a=> a>3)
 	*/
-	
-	/*
-	//3.22
+
+  /*
+	//3.22 && 3.23
 	val one = MyList(1,2,3,4)
 	val two = MyList(4,5,6,7)
 	
 	MyList.uberAder(one, two) ((a,b)=>a+b)
   */
-	
+
+  //3.24
+  val main = MyList(1, 2, 3, 4)                   //> main  : funproginsca.MyList.MyList[Int] = MyCons(1,MyCons(2,MyCons(3,MyCons
+                                                  //| (4,MyNil))))
+  val sub1 = MyList(1, 2)                         //> sub1  : funproginsca.MyList.MyList[Int] = MyCons(1,MyCons(2,MyNil))
+  val sub2 = MyList(2, 3)                         //> sub2  : funproginsca.MyList.MyList[Int] = MyCons(2,MyCons(3,MyNil))
+  val sub3 = MyList(4)                            //> sub3  : funproginsca.MyList.MyList[Int] = MyCons(4,MyNil)
+  val subNot1 = MyList(1, 3)                      //> subNot1  : funproginsca.MyList.MyList[Int] = MyCons(1,MyCons(3,MyNil))
+
+  MyList.hasSubsequence(main, sub1)               //> res0: Boolean = true
+  MyList.hasSubsequence(main, sub2)               //> res1: Boolean = true
+  MyList.hasSubsequence(main, sub3)               //> res2: Boolean = true
+  MyList.hasSubsequence(main, subNot1)            //> res3: Boolean = false
+
 }
 
 object MyList {
@@ -96,44 +109,59 @@ object MyList {
   case object MyNil extends MyList[Nothing]
   case class MyCons[+A](head: A, tail: MyList[A]) extends MyList[A]
 
+  //3.24
+  def hasSubsequence[A](sup: MyList[A], sub: MyList[A]): Boolean = {
 
-	//3.22
-	def uberAder[A,B](list1:MyList[A],list2:MyList[A])(f: (A,A) => A):MyList[A] = (list1,list2) match {
-	case (MyCons(a,b),MyCons(c,d)) => MyCons(f(a,c),uberAder(b,d)(f))
-	case (MyNil,MyCons(a,b)) => MyCons(a,b)
-	case (MyCons(a,b),MyNil) => MyCons(a,b)
-	case (MyNil,MyNil) => MyNil
-	
-	}
+    val originalSubsequence = sub
+    def hasSubsequenceInternal[A](sup: MyList[A], sub: MyList[A]): Boolean = (sup, sub) match {
+      case (a, b) if (a == b) => true
+      case (_, MyNil) => true
+      case (MyNil, _) => false
+      case (MyCons(a, atail), MyCons(b, btail)) => if (a == b)  hasSubsequenceInternal(atail, btail) else {
+        if (size(atail) >= size(sub)) hasSubsequenceInternal(atail, originalSubsequence) else false
+        
+      }
+    }
+    hasSubsequenceInternal(sup, sub)
+  }
 
-	//3.21
-	def flatMapFilter[A](list:MyList[A])(f: A => Boolean):MyList[A] = {
-		flatMap(list) (a => if(f(a)) MyList(a) else MyNil)
-	}
+  def size[A](list: MyList[A]) = foldRight(list, 0)((item, list) => list + 1)
 
+  //3.22 && 3.23
+  def uberAder[A, B](list1: MyList[A], list2: MyList[A])(f: (A, A) => A): MyList[A] = (list1, list2) match {
+    case (MyCons(a, b), MyCons(c, d)) => MyCons(f(a, c), uberAder(b, d)(f))
+    case (MyNil, MyCons(a, b)) => MyCons(a, b)
+    case (MyCons(a, b), MyNil) => MyCons(a, b)
+    case (MyNil, MyNil) => MyNil
 
-	//3.20
-	def flatMap[A,B](as: MyList[A])(f: A => MyList[B]): MyList[B] ={
-	val temp = foldRight(as,MyList[MyList[B]]())((item,list) => MyCons(f(item),list))
-	megaFold(temp)
-	}
-	
+  }
 
-	//3.19
-	def filter[A](as: MyList[A])(f: A => Boolean): MyList[A] = {
-	foldRight(as,MyList[A]())((item,list)=> if(f(item)) MyCons(item,list) else list)
-	}
+  //3.21
+  def flatMapFilter[A](list: MyList[A])(f: A => Boolean): MyList[A] = {
+    flatMap(list)(a => if (f(a)) MyList(a) else MyNil)
+  }
 
-	//3.18
-	def map[A,B](as: MyList[A])(f: A => B): MyList[B] = {
-	   foldRight(as,MyList[B]())((item,list)=>MyCons(f(item),list))
-	}
-	
-	//3.17
-	def stringer(l:List[Double]):List[String] = l.map(_.toString)
-	
-	//3.16
-	def increase(l:List[Int]):List[Int] = l.map(_+1)
+  //3.20
+  def flatMap[A, B](as: MyList[A])(f: A => MyList[B]): MyList[B] = {
+    val temp = foldRight(as, MyList[MyList[B]]())((item, list) => MyCons(f(item), list))
+    megaFold(temp)
+  }
+
+  //3.19
+  def filter[A](as: MyList[A])(f: A => Boolean): MyList[A] = {
+    foldRight(as, MyList[A]())((item, list) => if (f(item)) MyCons(item, list) else list)
+  }
+
+  //3.18
+  def map[A, B](as: MyList[A])(f: A => B): MyList[B] = {
+    foldRight(as, MyList[B]())((item, list) => MyCons(f(item), list))
+  }
+
+  //3.17
+  def stringer(l: List[Double]): List[String] = l.map(_.toString)
+
+  //3.16
+  def increase(l: List[Int]): List[Int] = l.map(_ + 1)
 
   //3.15
   def megaFold[A](baselist: MyList[MyList[A]]): MyList[A] = {
@@ -150,8 +178,8 @@ object MyList {
 
   // exercise 3.12
   def revert[A](a: MyList[A]) =
-  foldLeft(a, MyList[A]())(
-  (list,item) => MyCons(item,list))
+    foldLeft(a, MyList[A]())(
+      (list, item) => MyCons(item, list))
 
   // exercise 3.10
   def foldLeft[A, B](as: MyList[A], z: B)(f: (B, A) => B): B = as match {
